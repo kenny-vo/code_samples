@@ -1,14 +1,18 @@
+//Code samples used in typescript on AngularCLI with Django backend.
+
+
+
 // Code used for progress bar logic with bootstrap progress bar.
 //If field is null or has not been filled out yet, it does not get added to total
-
 // object with many types of attributes
 var object = {
-  key1: 'string',
+  key1: [{key1a: 'abc'}, {key1a: 'xyz'}, {key1a: 'lmn'}],
   key2: '',
   key3: [],
   key4: [1, 3, 5],
   key5: {fruit: 'Apple'},
   key6: 1,
+  key7: 'string'
 };
 
 // array of keys only relavent to progress bar
@@ -20,11 +24,9 @@ var progressBarCriteria = [
 ]
 
 // Calculate Progress Bar %
-
 // start progressbar count
 var progressCount = 1;
 var progressKeyLength = progressBarCriteria.length;
-
 // Loop through each key
 for (var i = 0; i<progressKeyLength; i++){
   // Check if its an array
@@ -43,6 +45,45 @@ for (var i = 0; i<progressKeyLength; i++){
     }
   }
 }
-
 // Calculate progress bar completion out of 100
 this.progressBar = ((100/progressKeyLength)*progressCount)
+
+
+
+// Code for updating checkboxes on a form
+// function passes a click event as well as a piece of data 'fundingResult'
+updateCheckbox(event, data) {
+  // checks if the element that was clicked on is checked
+  if(event.srcElement.checked) {
+    // if it is, then push the data object into the array
+    this.object.key1.push({key1a: data});
+  } else {
+    // if not checked or unchecked, loops array to find match with the data being sent
+    for (var k = 0; k < this.object.key1.length; k++) {
+      if (this.object.key1[k].key1a === data){
+        // if there is a match, remove that index
+        this.object.key1.splice(k, 1);
+      }
+    }
+  }
+}
+// function to check if box should be checked on load
+hasCheck(data) {
+   for(var iterator of this.object.key1) {
+     if (iterator.key1a == data) {
+       return true;
+     }
+   }
+  return false;
+}
+
+
+
+// Get request to external API
+getDataList() {
+  return this.http.get(this.dataUrl).map(
+    (res: Response) => {
+        return res.json()
+    }
+  )
+}
