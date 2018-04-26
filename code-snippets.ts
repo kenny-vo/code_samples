@@ -1,7 +1,6 @@
 //Code samples used in AngularCLI version(4.4.6) project with Django backend.
 
 // Code used with bootstrap progress bar.
-//If field is null or has not been filled out yet, it does not get added to total
 // object with many types of attributes
 var object = {
   key1: [{key1a: 'abc'}, {key1a: 'xyz'}, {key1a: 'lmn'}],
@@ -21,7 +20,7 @@ var progressBarCriteria = [
   object.key6
 ]
 
-// Calculate Progress Bar %
+//If field is null or has not been filled out yet, it does not get added to total
 // start progressbar count
 var progressCount = 1;
 var progressKeyLength = progressBarCriteria.length;
