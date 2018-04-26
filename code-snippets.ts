@@ -1,8 +1,6 @@
-//Code samples used in typescript on AngularCLI with Django backend.
+//Code samples used in AngularCLI version(4.4.6) project with Django backend.
 
-
-
-// Code used for progress bar logic with bootstrap progress bar.
+// Code used with bootstrap progress bar.
 //If field is null or has not been filled out yet, it does not get added to total
 // object with many types of attributes
 var object = {
@@ -86,4 +84,33 @@ getDataList() {
         return res.json()
     }
   )
+}
+
+
+//Simple search service used for hitting external API to generate live list of dropdown responses
+// terms matched what user was typing in html form
+searchStack(terms: Observable<string>) {
+  // refreshes search every 4 milliseconds
+  return terms.debounceTime(400)
+    .distinctUntilChanged()
+    .switchMap(term => this.searchStackEntries(term));
+}
+
+searchStackEntries(term) {
+  return this.http
+      .get(this.stackUrl + this.queryUrl + term)
+      .map(res => res.json());
+}
+
+
+
+// Created simple pipe service in Angular to reformat date fields for client view
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+  name: 'dateFormat'
+})
+export class DateFormat implements PipeTransform {
+  transform(value: string): string {
+    return value.split('-').reverse().join('/');
+  }
 }
