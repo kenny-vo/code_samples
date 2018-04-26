@@ -105,6 +105,7 @@ searchStackEntries(term) {
 
 
 // Created simple pipe service in Angular to reformat date fields for client view
+//"date": "2018-04",
 import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
   name: 'dateFormat'
